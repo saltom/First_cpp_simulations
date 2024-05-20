@@ -25,8 +25,8 @@ int main() {
  
  Simulation sim(scalar_params, vector_params); 
  
- vector<double> t = sim.GenerateTime();
- vector<vector<double>> result_matrix = sim.Simulate(t, seed);
+ vector<double> t = sim.GetTimeVector(); 
+ vector<vector<double>> result_matrix = sim.Simulate(seed);
  vector<double> var = EnsembleVar(result_matrix);
  vector<double> corr = EnsembleCorr(result_matrix);
  
