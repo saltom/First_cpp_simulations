@@ -15,7 +15,7 @@ vector<double> Simulation::GenerateTime() {
  return t;
 }
 
-vector<vector<double>> Simulation::GenerateRandomMatrix(int seed = -1) { 
+vector<vector<double>> Simulation::GenerateRandomMatrix(int seed) { 
 
  vector<vector<double>> random_matrix(scalar_params.N, vector<double>(scalar_params.n));;
  mt19937 gen;
@@ -56,7 +56,7 @@ vector<double> Simulation::EulerMaruyama(const vector<double>& t, const vector<d
 return y;
 }
 
-vector<vector<double>> Simulation::Simulate(const vector<double>& t, int seed = -1) {
+vector<vector<double>> Simulation::Simulate(const vector<double>& t, int seed) {
 //passing here seed to ensure reproducibility over N realizations without compromising ensemble variance
 
  vector<vector<double>> realization_matrix(scalar_params.N);

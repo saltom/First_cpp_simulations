@@ -17,11 +17,11 @@ public:
  
  vector<double> GenerateTime();
  
- vector<vector<double>> GenerateRandomMatrix(int seed);
+ vector<vector<double>> GenerateRandomMatrix(int seed = -1);
 
  vector<double> EulerMaruyama(const vector<double>& t, const vector<double> & random_array);
 
- vector<vector<double>> Simulate(const vector<double>& t, int seed);
+ vector<vector<double>> Simulate(const vector<double>& t, int seed=-1);
  
 private:
 
