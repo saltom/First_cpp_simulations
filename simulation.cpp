@@ -1,12 +1,12 @@
 #include "simulation.h"
 
-Simulation::Simulation(const ScalarParams& scalar_params, const VectorParams& vector_params) : scalar_params(scalar_params), vector_params(vector_params) { 
+Simulation::Simulation(const Params& params) : params(params) { 
 
- double current_time = scalar_params.t0;
- double dt = (scalar_params.tf - scalar_params.t0) / scalar_params.n;   
+ double current_time = params.t0;
+ double dt = (params.tf - params.t0) / params.n;   
  time_vector.push_back(current_time);  
 
- for (int i = 1; i < scalar_params.n; ++i) {
+ for (int i = 1; i < params.n; ++i) {
   current_time += dt;  
   time_vector.push_back(current_time);
  } // constructor generates time
@@ -18,7 +18,7 @@ vector<double> Simulation::GetTimeVector() const {
 
 vector<vector<double>> Simulation::GenerateRandomMatrix(int seed) { 
 
- vector<vector<double>> random_matrix(scalar_params.N, vector<double>(scalar_params.n));;
+ vector<vector<double>> random_matrix(params.N, vector<double>(params.n));;
  mt19937 gen;
 
  if (seed == -1) {     //if seed is not provided a random one is chosen
@@ -30,10 +30,10 @@ vector<vector<double>> Simulation::GenerateRandomMatrix(int seed) {
   gen.seed(seed);
  } 
  
- normal_distribution<> distr(0.0, scalar_params.sigma); 
+ normal_distribution<> distr(0.0, params.sigma); 
 
- for (int j=0; j<scalar_params.N; ++j) {
-  for (int i = 0; i < scalar_params.n; ++i) {  
+ for (int j = 0; j < params.N; ++j) {
+  for (int i = 0; i < params.n; ++i) {  
    random_matrix[j][i] = distr(gen); 
   }
  }
@@ -41,30 +41,30 @@ vector<vector<double>> Simulation::GenerateRandomMatrix(int seed) {
 return random_matrix;
 }
 
-vector<double> Simulation::EulerMaruyama(const vector<double> & random_array) {
+vector<double> Simulation::EulerMaruyama(double (*f)(double, double), double (*g)(double, double), const vector<double> & random_array) {
 
  vector<double> y;
- double dt = (scalar_params.tf - scalar_params.t0) / scalar_params.n;  
- y.push_back(scalar_params.y0);
- double current_y = scalar_params.y0;
+ double dt = (params.tf - params.t0) / params.n;  
+ y.push_back(params.y0);
+ double current_y = params.y0;
  double dt_sqrt = sqrt(dt);
  
- for (int i = 0; i < scalar_params.n; ++i) {  
-  current_y += vector_params.f(time_vector[i], current_y) * dt + vector_params.g(time_vector[i], current_y) * random_array[i] * dt_sqrt;
+ for (int i = 0; i < params.n; ++i) {  
+  current_y += f(time_vector[i], current_y) * dt + g(time_vector[i], current_y) * random_array[i] * dt_sqrt;
   y.push_back(current_y);
  }
 
 return y;
 }
 
-vector<vector<double>> Simulation::Simulate(int seed) {
+vector<vector<double>> Simulation::Simulate(double (*f)(double, double), double (*g)(double, double), int seed) {
 //passing here seed to ensure reproducibility over N realizations without compromising ensemble variance
 
- vector<vector<double>> realization_matrix(scalar_params.N);
+ vector<vector<double>> realization_matrix(params.N);
  vector<vector<double>> random_matrix = GenerateRandomMatrix(seed);
 
- for (int j = 0; j < scalar_params.N; ++j) {
-  realization_matrix[j] = EulerMaruyama(random_matrix[j]); 
+ for (int j = 0; j < params.N; ++j) {
+  realization_matrix[j] = EulerMaruyama(f, g, random_matrix[j]); 
     }
     
  return realization_matrix;

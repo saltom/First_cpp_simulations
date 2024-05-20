@@ -1,7 +1,7 @@
 #ifndef PARAMS_H
 #define PARAMS_H
 
-struct ScalarParams {
+struct Params {
 
  double t0;
  double y0;
@@ -9,14 +9,6 @@ struct ScalarParams {
  double tf;
  int n;
  int N;
-
-
-};
-
-struct VectorParams {
-
- double (*f)(double, double);
- double (*g)(double, double);
 
 };
 

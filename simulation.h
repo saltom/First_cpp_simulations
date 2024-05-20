@@ -13,21 +13,19 @@ class Simulation {
 
 public:
 
- Simulation(const ScalarParams& scalar_params, const VectorParams& vector_params);   //constructor
+ Simulation(const Params& params);   //constructor
  
  vector<double> GetTimeVector() const; 
  
  vector<vector<double>> GenerateRandomMatrix(int seed = -1);
 
- vector<double> EulerMaruyama(const vector<double> & random_array);
+ vector<double> EulerMaruyama(double (*f)(double, double), double (*g)(double, double), const vector<double> & random_array);
 
- vector<vector<double>> Simulate(int seed=-1);
+ vector<vector<double>> Simulate(double (*f)(double, double), double (*g)(double, double), int seed=-1);
  
 private:
 
- ScalarParams scalar_params;
- 
- VectorParams vector_params;
+ Params params;
  
  vector<double> time_vector;
 

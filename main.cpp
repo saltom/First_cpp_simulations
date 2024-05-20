@@ -20,13 +20,11 @@ int main() {
  int n = 1000;     
  int N = 1000;
 
- ScalarParams scalar_params = {t0, y0, sigma, tf, n, N};
- VectorParams vector_params = {f, g};
- 
- Simulation sim(scalar_params, vector_params); 
+ Params params = {t0, y0, sigma, tf, n, N};
+ Simulation sim(params); 
  
  vector<double> t = sim.GetTimeVector(); 
- vector<vector<double>> result_matrix = sim.Simulate(seed);
+ vector<vector<double>> result_matrix = sim.Simulate(f, g, seed);
  vector<double> var = EnsembleVar(result_matrix);
  vector<double> corr = EnsembleCorr(result_matrix);
  
