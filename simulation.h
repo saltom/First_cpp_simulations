@@ -17,11 +17,13 @@ public:
  
  vector<double> GetTimeVector() const; 
  
- vector<vector<double>> GenerateRandomMatrix(int seed = -1);
+ vector<vector<double>> RandomMatrix(double sigma, int seed = -1);
+ 
+ vector<vector<vector<double>>> CorrelatedMatrices(double sigma1, double sigma2, double rho, int seed=-1); 
 
- vector<double> EulerMaruyama(double (*f)(double, double), double (*g)(double, double), const vector<double> & random_array);
+ vector<double> EulerMaruyama(double y0, double (*f)(double, double), double (*g)(double, double), const vector<double> & random_array);
 
- vector<vector<double>> Simulate(double (*f)(double, double), double (*g)(double, double), int seed=-1);
+ vector<vector<double>> Simulate(double y0, double sigma, double (*f)(double, double), double (*g)(double, double), const vector<vector<double>> & random_matrix);
  
 private:
 

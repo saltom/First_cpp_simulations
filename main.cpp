@@ -13,18 +13,19 @@ double g (double t, double y) {
 int main() {
 
  double t0 = 0.0;
+ double tf = 10;
+ int n = 1000;     
+ int N = 1000;  
  double y0 = 0.0;
  double sigma = 0.1;
- double tf = 10;
  int seed = 0;
- int n = 1000;     
- int N = 1000;
 
- Params params = {t0, y0, sigma, tf, n, N};
+ Params params = {t0, tf, n, N};
  Simulation sim(params); 
  
  vector<double> t = sim.GetTimeVector(); 
- vector<vector<double>> result_matrix = sim.Simulate(f, g, seed);
+ vector<vector<double>> random_matrix =  sim.RandomMatrix(sigma, seed);
+ vector<vector<double>> result_matrix = sim.Simulate(y0, sigma, f, g, random_matrix);
  vector<double> var = EnsembleVar(result_matrix);
  vector<double> corr = EnsembleCorr(result_matrix);
  
