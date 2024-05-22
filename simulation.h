@@ -23,7 +23,7 @@ public:
 
  vector<double> EulerMaruyama(double y0, double (*f)(double, double), double (*g)(double, double), const vector<double> & random_array);
 
- vector<vector<double>> Simulate(double y0, double sigma, double (*f)(double, double), double (*g)(double, double), const vector<vector<double>> & random_matrix);
+ vector<vector<double>> Simulate(double y0, double (*f)(double, double), double (*g)(double, double), const vector<vector<double>> & random_matrix);
  
 private:
 

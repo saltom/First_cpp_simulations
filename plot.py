@@ -4,12 +4,14 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df_var = pd.read_csv('data_var.txt', header = None, names=['t', 'var'])
+df_var = pd.read_csv('data_var.txt', header = None, names=['t', 'var1', 'var2'])
 t = df_var['t']
-var = df_var['var']
+var1 = df_var['var1']
+var2 = df_var['var2']
 
-df_corr = pd.read_csv('data_corr.txt', header = None, names=['t', 'corr'])
-corr = df_corr['corr']
+df_corr = pd.read_csv('data_corr.txt', header = None, names=['t', 'corr1', 'corr2'])
+corr1 = df_corr['corr1']
+corr2 = df_corr['corr2']
 
 n = np.linspace(100, 1000, 10)
 
@@ -24,7 +26,8 @@ ax.tick_params(axis='x', labelsize=ticks)
 ax.tick_params(axis='y', labelsize=ticks) 
 ax.set_xlabel('Time', fontsize=font)
 ax.set_ylabel('Variance', fontsize=font)
-ax.plot(t, var, color='green', lw=width)
+ax.plot(t, var1, color='green', lw=width)
+ax.plot(t, var2, color='orange', lw=width)
 fig.savefig('var.pdf')
 
 fig, ax = plt.subplots(figsize=size)
@@ -33,5 +36,6 @@ ax.tick_params(axis='x', labelsize=ticks)
 ax.tick_params(axis='y', labelsize=ticks) 
 ax.set_xlabel('Time', fontsize=font)
 ax.set_ylabel('Correlation', fontsize=font)
-ax.plot(t, corr, color='green', lw=width)
+ax.plot(t, corr1, color='green', lw=width)
+ax.plot(t, corr2, color='orange', lw=width)
 fig.savefig('corr.pdf')

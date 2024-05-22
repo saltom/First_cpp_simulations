@@ -46,7 +46,7 @@ vector<vector<vector<double>>> Simulation::CorrelatedMatrices(double sigma1, dou
  vector<vector<vector<double>>> random_matrices;
  mt19937 gen;
 
- if (seed == -1) {     //if seed is not provided a random one is chosen
+ if (seed == -1) {     
   random_device rd;
   gen.seed(rd());
  }
@@ -57,7 +57,7 @@ vector<vector<vector<double>>> Simulation::CorrelatedMatrices(double sigma1, dou
  
  normal_distribution<> distr(0.0, 1.0); 
 
- double a = sigma1;
+ double a = sigma1;      //Cholesky decomposition
  double b = rho * sigma2;
  double c = sigma2 * sqrt(1 - std::pow(rho, 2));
 
@@ -99,7 +99,7 @@ vector<double> Simulation::EulerMaruyama(double y0, double (*f)(double, double),
 return y;
 }
 
-vector<vector<double>> Simulation::Simulate(double y0, double sigma, double (*f)(double, double), double (*g)(double, double), const vector<vector<double>> & random_matrix) {
+vector<vector<double>> Simulation::Simulate(double y0, double (*f)(double, double), double (*g)(double, double), const vector<vector<double>> & random_matrix) {
 
  vector<vector<double>> realization_matrix(params.N);
 
