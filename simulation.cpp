@@ -1,19 +1,32 @@
 #include "simulation.h"
 
-Simulation::Simulation(const Params& params) : params(params) { 
+Simulation::Simulation(const Params& params) : params(params) {      // constructor generates time and lag 
 
  double current_time = params.t0;
+ double current_lag = -params.tf;
  double dt = (params.tf - params.t0) / params.n;   
  time_vector.push_back(current_time);  
+ lag_vector.push_back(current_lag);
+ int lag_number = 2 * params.n - 1;
 
  for (int i = 1; i < params.n; ++i) {
   current_time += dt;  
   time_vector.push_back(current_time);
- } // constructor generates time
+ }
+ 
+ for (int i = 1; i < lag_number; ++i) {
+  current_lag += dt;  
+  lag_vector.push_back(current_lag);
+ }
+  
 }
 
 vector<double> Simulation::GetTimeVector() const {
     return time_vector;
+}
+
+vector<double> Simulation::GetLagVector() const {
+    return lag_vector;
 }
 
 vector<vector<double>> Simulation::RandomMatrix(double sigma, int seed) { 

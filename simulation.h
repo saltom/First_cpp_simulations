@@ -16,6 +16,8 @@ public:
  Simulation(const Params& params);   //constructor
  
  vector<double> GetTimeVector() const; 
+
+ vector<double> GetLagVector() const;  
  
  vector<vector<double>> RandomMatrix(double sigma, int seed = -1);
  
@@ -30,6 +32,8 @@ private:
  Params params;
  
  vector<double> time_vector;
+
+ vector<double> lag_vector;
 
 };
 

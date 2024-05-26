@@ -26,6 +26,7 @@ int main() {
  Simulation sim(params); 
  
  vector<double> t = sim.GetTimeVector(); 
+ vector<double> tau = sim.GetLagVector();  
  vector<vector<vector<double>>> random_matrices =  sim.CorrelatedMatrices(sigma1, sigma2, rho, seed);
  vector<vector<double>> random_matrix_1 = random_matrices[0];
  vector<vector<double>> random_matrix_2 = random_matrices[1]; 
@@ -51,10 +52,11 @@ int main() {
  data_corr[2] = corr_2; 
  WriteToFile (data_corr, "data_corr.txt");
  
- vector<vector<double>> datacross;
- datacross.push_back(cross);
+ vector<vector<double>> data_cross(2);
+ data_cross[0] = tau;
+ data_cross[1] = cross;
  
- WriteToFile(datacross, "data_cross.txt");
+ WriteToFile(data_cross, "data_cross.txt");
 
  return 0;
 }
