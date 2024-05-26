@@ -3,7 +3,7 @@
 #include "functions.h"
 
 double f (double t, double y) {
- return - y;
+ return -y;
 }
  
 double g (double t, double y) {
@@ -19,7 +19,7 @@ int main() {
  double y0 = 0.0;
  double sigma1 = 0.1;
  double sigma2 = 0.1;
- double rho = 0;
+ double rho = -1;
  int seed = 0;
 
  Params params = {t0, tf, n, N};
@@ -37,6 +37,8 @@ int main() {
  vector<double> corr_1 = EnsembleCorr(realization_matrix_1);
  vector<double> corr_2 = EnsembleCorr(realization_matrix_2); 
  
+ vector<double> cross = EnsembleCross(realization_matrix_1, realization_matrix_2);
+ 
  vector<vector<double>> data_var(3);
  data_var[0] = t;
  data_var[1] = var_1;
@@ -48,6 +50,11 @@ int main() {
  data_corr[1] = corr_1;
  data_corr[2] = corr_2; 
  WriteToFile (data_corr, "data_corr.txt");
+ 
+ vector<vector<double>> datacross;
+ datacross.push_back(cross);
+ 
+ WriteToFile(datacross, "data_cross.txt");
 
  return 0;
 }

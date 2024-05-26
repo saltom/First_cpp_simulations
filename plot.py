@@ -13,7 +13,8 @@ df_corr = pd.read_csv('data_corr.txt', header = None, names=['t', 'corr1', 'corr
 corr1 = df_corr['corr1']
 corr2 = df_corr['corr2']
 
-n = np.linspace(100, 1000, 10)
+df_cross = pd.read_csv('data_cross.txt', header = None, names=['cross'])
+cross = df_cross['cross']
 
 font = 18
 ticks = 15
@@ -39,3 +40,16 @@ ax.set_ylabel('Correlation', fontsize=font)
 ax.plot(t, corr1, color='green', lw=width)
 ax.plot(t, corr2, color='orange', lw=width)
 fig.savefig('corr.pdf')
+
+fig, ax = plt.subplots(figsize=size)
+plt.subplots_adjust(left=0.2, right=0.9, top=0.9, bottom=0.2)
+ax.tick_params(axis='x', labelsize=ticks) 
+ax.tick_params(axis='y', labelsize=ticks) 
+ax.set_xlabel('Time', fontsize=font)
+ax.set_ylabel('Correlation', fontsize=font)
+ax.plot(cross, color='green', lw=width)
+fig.savefig('cross.pdf')
+
+
+
+
